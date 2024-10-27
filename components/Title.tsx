@@ -11,7 +11,7 @@ export function Title({children, extraStyles}:{children:ReactNode, extraStyles?:
 const styles = StyleSheet.create({
     tite:{
         color:TEXT_COLOR,
-        fontSize: 24,
+        fontSize: 28,
         lineHeight:29.05,
         textAlign:"center",
         fontStyle:"italic",

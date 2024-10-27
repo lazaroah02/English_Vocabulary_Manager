@@ -1,25 +1,30 @@
 import { Pressable, StyleSheet, Text, View } from "react-native";
-import { ReactNode, useState } from "react";
+import { ReactNode, useState, useEffect } from "react";
 
-export function HidableWord({showWord = true, children}:{showWord?: boolean, children:ReactNode}) {
-    const [show, setShow] = useState(showWord)
+export function HidableWord({children}:{children:ReactNode}) {
+    const [show, setShow] = useState(false)
+    useEffect(() => {
+        setShow(false)
+    },[children])
     return ( 
-        <View style = {styles.hidableWordContainer}>
-            <Pressable onPress={() => setShow(!show)}>
-                <Text style = {styles.text}>{show?'Hide':'Show'}</Text>
-            </Pressable>
-            <Text style = {show?{opacity:1}:{opacity:0}}>{children}</Text>
-        </View>
+        <Pressable style = {styles.hidableWordContainer} onPress={() => setShow(!show)}>
+            <Text style = {styles.text}>{show?children:'Tap to see traduction'}</Text>
+        </Pressable>
      );
 }
 
 const styles = StyleSheet.create({
     hidableWordContainer:{
-        flexDirection:"row",
-        gap: 10
+        backgroundColor:"#12739A",
+        borderRadius:10,
+        padding:10,
+        minWidth:138,
+        alignItems:"center"
     },
-    test:{
-        height:"auto",
+    text:{
+        color:"#fff",
+        fontSize:20,
+        fontWeight:"500",
     }
   });
   

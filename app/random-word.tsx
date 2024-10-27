@@ -6,6 +6,7 @@ import { HidableWord } from '@/components/HidableWord';
 import TraductionModeContext from '@/contexts/TraductionModeContext'
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { BACKGROUND_COLOR } from '@/constants/Colors';
+import { Title } from '@/components/Title';
 
 export default function RandomWord() {
   const [word, setWord] = useState<Word>()
@@ -21,15 +22,18 @@ export default function RandomWord() {
 
   return (
     <SafeAreaView style = {styles.page}>
+      <View style = {styles.titleContainer}>
+        <Title>Random Word</Title>
+      </View>
       <View style = {styles.randomWordCard}>
         {mode === "en-es"?
         <View style = {styles.wordContainer}>
           <Text style = {styles.text}>{word?.en}</Text>
-          <HidableWord showWord = {false}>{word?.es}</HidableWord>
+          <HidableWord>{word?.es}</HidableWord>
         </View>:
         <View style = {styles.wordContainer}>
           <Text style = {styles.text}>{word?.es}</Text>
-          <HidableWord showWord = {false}>{word?.en}</HidableWord>
+          <HidableWord>{word?.en}</HidableWord>
         </View>
         }
         <Pressable style = {styles.randomWordButton} onPress={() => setWord(getRandomWord())}>
@@ -45,6 +49,9 @@ const styles = StyleSheet.create({
     backgroundColor:BACKGROUND_COLOR,
     flex:1
   },
+  titleContainer:{
+    top:60,
+  },
   randomWordCard:{
     backgroundColor:"#5EB4D8",
     width:"90%",
@@ -56,7 +63,8 @@ const styles = StyleSheet.create({
     gap:10,
     margin:"auto",
     textAlign:"center",
-    alignItems:"center"
+    alignItems:"center",
+    top:15
   },
   randomWordButton:{
     margin:"auto"
