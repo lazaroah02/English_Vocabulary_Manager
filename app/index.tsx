@@ -1,19 +1,18 @@
-import { SafeAreaView } from "react-native-safe-area-context";
-import { BACKGROUND_COLOR } from "@/constants/Colors";
 import { StyleSheet, View, Pressable } from "react-native";
 import { Title } from "@/components/Title";
 import { useNavigation } from "expo-router";
+import Page from "@/components/Page";
 
 export default function HomeMenu() {
   const navigation = useNavigation();
   return (
-    <SafeAreaView style={styles.pageContainer}>
+    <Page>
       <View style={styles.titleContainer}>
         <Title>English Vocabulary</Title>
       </View>
       <Pressable
         style={[styles.label, styles.label1]}
-        onPress={() => navigation.navigate("random-word")}
+        onPress={() => navigation.navigate("vocabulary")}
       >
         <Title extraStyles={{ fontSize: 20 }}>Vocabulary</Title>
       </Pressable>
@@ -23,15 +22,11 @@ export default function HomeMenu() {
       >
         <Title extraStyles={{ fontSize: 20 }}>Practice</Title>
       </Pressable>
-    </SafeAreaView>
+    </Page>
   );
 }
 
 const styles = StyleSheet.create({
-  pageContainer: {
-    backgroundColor: BACKGROUND_COLOR,
-    flex: 1,
-  },
   titleContainer: {
     position: "relative",
     top: 100,

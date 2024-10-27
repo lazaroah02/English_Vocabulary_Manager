@@ -33,6 +33,7 @@ export default function RootLayout() {
           <Stack>
             <Stack.Screen name="index" options={{headerShown: false}}/>
             <Stack.Screen name="random-word" options={{headerTitle:"Practice", headerRight:ChangeTraductionMode}}/>
+            <Stack.Screen name="vocabulary" options={{headerTitle:"Vocabulary", headerRight:ChangeTraductionMode}}/>
             <Stack.Screen name="+not-found" />
           </Stack>
         </TraductionModeContextProvider>

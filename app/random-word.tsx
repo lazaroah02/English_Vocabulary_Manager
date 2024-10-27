@@ -1,77 +1,71 @@
-import { StyleSheet, Pressable, View, Image, Text } from 'react-native';
+import { StyleSheet, Pressable, View, Image, Text } from "react-native";
 import { words } from "../database.json";
-import { Word } from '@/types';
-import { useState, useEffect, useContext } from 'react';
-import { HidableWord } from '@/components/HidableWord';
-import TraductionModeContext from '@/contexts/TraductionModeContext'
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { BACKGROUND_COLOR } from '@/constants/Colors';
-import { Title } from '@/components/Title';
+import { Word } from "@/types";
+import { useState, useEffect, useContext } from "react";
+import { HidableWord } from "@/components/HidableWord";
+import TraductionModeContext from "@/contexts/TraductionModeContext";
+import { Title } from "@/components/Title";
+import Page from "@/components/Page";
 
 export default function RandomWord() {
-  const [word, setWord] = useState<Word>()
-  const {mode} = useContext(TraductionModeContext)
+  const [word, setWord] = useState<Word>();
+  const { mode } = useContext(TraductionModeContext);
 
-  function getRandomWord():Word{
-    return words[Math.floor(Math.random() * words.length)]
+  function getRandomWord(): Word {
+    return words[Math.floor(Math.random() * words.length)];
   }
 
   useEffect(() => {
-    setWord(getRandomWord())
-  },[])
+    setWord(getRandomWord());
+  }, []);
 
   return (
-    <SafeAreaView style = {styles.page}>
-      <View style = {styles.titleContainer}>
+    <Page>
+      <View style={styles.titleContainer}>
         <Title>Random Word</Title>
       </View>
-      <View style = {styles.randomWordCard}>
-        {mode === "en-es"?
-        <View style = {styles.wordContainer}>
-          <Text style = {styles.text}>{word?.en}</Text>
-          <HidableWord>{word?.es}</HidableWord>
-        </View>:
-        <View style = {styles.wordContainer}>
-          <Text style = {styles.text}>{word?.es}</Text>
-          <HidableWord>{word?.en}</HidableWord>
+      <View style={styles.randomWordCard}>
+        <View style={styles.wordContainer}>
+          <Text style={styles.text}>
+            {mode === "en-es" ? word?.en : word?.es}
+          </Text>
+          <HidableWord>{mode === "en-es" ? word?.es : word?.en}</HidableWord>
         </View>
-        }
-        <Pressable style = {styles.randomWordButton} onPress={() => setWord(getRandomWord())}>
-          <Image source={require("@/assets/images/dices.png")}/>
+        <Pressable
+          style={styles.randomWordButton}
+          onPress={() => setWord(getRandomWord())}
+        >
+          <Image source={require("@/assets/images/dices.png")} />
         </Pressable>
-        </View>
-    </SafeAreaView>
+      </View>
+    </Page>
   );
 }
 
 const styles = StyleSheet.create({
-  page:{
-    backgroundColor:BACKGROUND_COLOR,
-    flex:1
+  titleContainer: {
+    top: 60,
   },
-  titleContainer:{
-    top:60,
+  randomWordCard: {
+    backgroundColor: "#5EB4D8",
+    width: "90%",
+    margin: "auto",
+    height: 300,
+    borderRadius: 30,
   },
-  randomWordCard:{
-    backgroundColor:"#5EB4D8",
-    width:"90%",
-    margin:"auto",
-    height:300,
-    borderRadius:30
+  wordContainer: {
+    gap: 10,
+    margin: "auto",
+    textAlign: "center",
+    alignItems: "center",
+    top: 15,
   },
-  wordContainer:{
-    gap:10,
-    margin:"auto",
-    textAlign:"center",
-    alignItems:"center",
-    top:15
+  randomWordButton: {
+    margin: "auto",
   },
-  randomWordButton:{
-    margin:"auto"
+  text: {
+    color: "#fff",
+    fontSize: 20,
+    fontWeight: "500",
   },
-  text:{
-    color:"#fff",
-    fontSize:20,
-    fontWeight:"500",
-  }
 });

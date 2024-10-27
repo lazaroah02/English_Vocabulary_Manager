@@ -8,44 +8,32 @@ import {
   Text,
 } from "react-native";
 import TraductionModeContext from '@/contexts/TraductionModeContext'
-import ChangeTraductionMode from '@/components/ChangeTraductionMode';
-import {SafeAreaView} from 'react-native-safe-area-context';
 import {useWords} from '@/hooks/useWords'
+import Page from "@/components/Page";
 
 export default function HomeScreen() {
   const {mode} = useContext(TraductionModeContext)
   const {words} = useWords()
   return (
-    <SafeAreaView style={styles.container}>
-      <ChangeTraductionMode/>
+    <Page>
       <FlatList
         data={words}
         keyExtractor={(word: Word) => word.id.toString()}
         renderItem={({ item: word, index }) => (
           <View style = {styles.wordContainer}>
             <Text>{index + 1}.</Text>
-            {mode === "en-es"?
             <View style = {styles.wordContainer}>
-              <HidableWord>{word?.en}</HidableWord>
-              <HidableWord showWord = {false}>{word?.es}</HidableWord>
-            </View>:
-            <View style = {styles.wordContainer}>
-              <HidableWord>{word?.es}</HidableWord>
-              <HidableWord showWord = {false}>{word?.en}</HidableWord>
+              <Text>{mode === "en-es"? word?.en : word?.es}</Text>
+              <HidableWord >{mode === "es-en"? word?.es: word?.en}</HidableWord>
             </View>
-            }
           </View>
         )}
       />
-    </SafeAreaView>
+    </Page>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    height:"auto",
-  },
   wordContainer:{
     flexDirection:'row',
     gap:10
