@@ -19,7 +19,7 @@ export default ChangeTraductionMode;
 
 const styles = StyleSheet.create({
   image:{
-    width:100,
+    width:90,
     height:50
   }
 })

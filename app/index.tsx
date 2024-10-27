@@ -12,7 +12,7 @@ export default function HomeMenu() {
       </View>
       <Pressable
         style={[styles.label, styles.label1]}
-        onPress={() => navigation.navigate("vocabulary")}
+        onPress={() => navigation.navigate('vocabulary')}
       >
         <Title extraStyles={{ fontSize: 20 }}>Vocabulary</Title>
       </Pressable>

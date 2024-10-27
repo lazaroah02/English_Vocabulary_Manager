@@ -6,7 +6,8 @@ import { TraductionModeContextProvider } from '@/contexts/TraductionModeContext'
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 import { SQLiteProvider} from 'expo-sqlite';
 import 'react-native-reanimated';
-import ChangeTraductionMode from '@/components/ChangeTraductionMode'
+import VocabularyHeaderRight from '@/components/VocabularyHeaderRight'
+import ChangeTraductionMode from '@/components/ChangeTraductionMode';
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -33,7 +34,7 @@ export default function RootLayout() {
           <Stack>
             <Stack.Screen name="index" options={{headerShown: false}}/>
             <Stack.Screen name="random-word" options={{headerTitle:"Practice", headerRight:ChangeTraductionMode}}/>
-            <Stack.Screen name="vocabulary" options={{headerTitle:"Vocabulary", headerRight:ChangeTraductionMode}}/>
+            <Stack.Screen name="vocabulary" options={{headerTitle:"Vocabulary", headerRight:VocabularyHeaderRight}}/>
             <Stack.Screen name="+not-found" />
           </Stack>
         </TraductionModeContextProvider>
