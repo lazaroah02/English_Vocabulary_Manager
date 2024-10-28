@@ -4,7 +4,7 @@ import { useSQLiteContext } from "expo-sqlite";
 
 export function useWords() {
     const db = useSQLiteContext();
-    const [words, setWords] = useState<Word[]>([{id:1, en:"Hello firiend. How are you today?", es:"Hola amigo. Como estas hoy en tu dia"}])
+    const [words, setWords] = useState<Word[]>([])
     
     useEffect(() => {
         //get all words from database

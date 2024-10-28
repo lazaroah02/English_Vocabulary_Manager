@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
     borderRadius: 30,
   },
   wordContainer: {
-    gap: 10,
+    gap: 30,
     margin: "auto",
     textAlign: "center",
     alignItems: "center",
