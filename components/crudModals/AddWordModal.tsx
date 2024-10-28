@@ -3,13 +3,13 @@ import {
   Pressable,
   Text,
   Modal,
-  StyleSheet,
   TextInput,
 } from "react-native";
 import { useState, useContext } from "react";
 import ManageDatabaseContext from "@/contexts/ManageDatabaseContext";
 import { CustomResponse } from "@/types";
 import { ToastType, ToastDurationType } from "@/types";
+import { commonStyles } from "./commonStyles";
 
 function AddWord({showToast}:{showToast:({message, type, duration}:{message:string, type?:ToastType, duration?:ToastDurationType}) => void}) {
   const [modalVisible, setModalVisible] = useState(false);
@@ -49,136 +49,48 @@ function AddWord({showToast}:{showToast:({message, type, duration}:{message:stri
           setNewWordData({ en: "", es: "" });
         }}
       >
-        <View style={styles.centeredView}>
-          <View style={styles.modalView}>
+        <View style={commonStyles.centeredView}>
+          <View style={commonStyles.modalView}>
             <Pressable
-              style={styles.closeModalButton}
+              style={commonStyles.closeModalButton}
               onPress={() => {
                 setModalVisible(!modalVisible);
                 setNewWordData({ en: "", es: "" });
               }}
             >
-              <Text style={styles.closeModalButtonText}>X</Text>
+              <Text style={commonStyles.closeModalButtonText}>X</Text>
             </Pressable>
-            <Text style={styles.modalTitle}>Add New Word</Text>
-            <View style={styles.addWordForm}>
+            <Text style={commonStyles.modalTitle}>Add New Word</Text>
+            <View style={commonStyles.addWordForm}>
               <TextInput
                 id="en"
                 placeholder="English Word"
-                style={styles.input}
+                style={commonStyles.input}
                 value={newWordData.en}
                 onChangeText={(text) => handleUpdateNewWordData("en", text)}
               />
               <TextInput
                 id="es"
                 placeholder="Spanish Word"
-                style={styles.input}
+                style={commonStyles.input}
                 value={newWordData.es}
                 onChangeText={(text) => handleUpdateNewWordData("es", text)}
               />
-              <Pressable style = {styles.sendDataButton} onPress={handleAddWord}>
-                <Text style = {styles.textStyle}>Send</Text>
+              <Pressable style = {commonStyles.sendDataButton} onPress={handleAddWord}>
+                <Text style = {commonStyles.textStyle}>Send</Text>
               </Pressable>
             </View>
           </View>
         </View>
       </Modal>
       <Pressable
-        style={styles.showModalButton}
+        style={commonStyles.showModalButton}
         onPress={() => setModalVisible(true)}
       >
-        <Text style={styles.showModalButtonText}>+</Text>
+        <Text style={commonStyles.showModalButtonText}>+</Text>
       </Pressable>
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  centeredView: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  modalView: {
-    width: "90%",
-    margin: 20,
-    backgroundColor: "white",
-    borderRadius: 10,
-    padding: 10,
-    alignItems: "center",
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.5,
-    shadowRadius: 4,
-    elevation: 5,
-  },
-  closeModalButton: {
-    position: "absolute",
-    right: 10,
-    top: 10,
-    backgroundColor:"#00000015",
-    borderRadius:5,
-    width: 30,
-    height: 30,
-    justifyContent: "center",
-  },
-  closeModalButtonText: {
-    textAlign: "center",
-  },
-  modalTitle: {
-    position: "absolute",
-    top: 15,
-    left: 10,
-    fontSize: 18,
-    fontWeight: "600",
-  },
-  showModalButton: {
-    width: 50,
-    height: 50,
-    backgroundColor: "#fff",
-    borderRadius: 100,
-    justifyContent: "center",
-    alignSelf: "flex-end",
-    marginRight: 20,
-    marginBottom: 20,
-  },
-  showModalButtonText: {
-    fontSize: 40,
-    textAlign: "center",
-    top: -3,
-    color: "#12739A",
-  },
-  textStyle: {
-    color: "white",
-    fontWeight: "bold",
-    textAlign: "center",
-  },
-  modalText: {
-    marginBottom: 15,
-    textAlign: "center",
-  },
-  addWordForm: {
-    width: "100%",
-    marginTop:40
-  },
-  input: {
-    width: "100%",
-    height: 40,
-    marginTop: 12,
-    padding: 10,
-    backgroundColor:"#00000015",
-    borderRadius:5,
-  },
-  sendDataButton:{
-    backgroundColor:"#12739A",
-    borderRadius:10,
-    padding:10,
-    alignItems:"center",
-    marginTop:20
-  }
-});
 
 export default AddWord;

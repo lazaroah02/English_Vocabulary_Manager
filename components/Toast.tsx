@@ -9,7 +9,7 @@ function Toast() {
   const translateY = useRef(new Animated.Value(50)).current;
 
   const ToastAnimation = Animated.timing(translateY, {
-    toValue: -20,
+    toValue: -15,
     duration: 300,
     delay: 0,
     useNativeDriver: true,

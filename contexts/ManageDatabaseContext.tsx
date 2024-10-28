@@ -6,7 +6,9 @@ import { CustomResponse } from "@/types";
 const ManageDatabaseContext = createContext<{
   words: Word[];
   addWord: ({ en, es }: { en: string; es: string }) => any;
-}>({ words: [], addWord: () => {} });
+  editWord: (word:Word) => any;
+  deleteWord: (wordId:number) => any;
+}>({ words: [], addWord: () => {}, editWord:() => {}, deleteWord:() => {} });
 
 export function ManageDatabaseContextProvider({
   children,
@@ -30,7 +32,7 @@ export function ManageDatabaseContextProvider({
 
   const addWord = async ({ en, es }: { en: string; es: string }) => {
     try {
-      //add the new word to tdatabase
+      //add the new word to database
       const result = await db.runAsync(
         "INSERT INTO words (en, es) VALUES (?, ?)",
         en,
@@ -44,8 +46,44 @@ export function ManageDatabaseContextProvider({
         throw new Error("Error adding the new word")
     }
   };
+  const editWord = async (word:Word) => {
+    try {
+      //edit word from database
+      const result = await db.runAsync(
+        "UPDATE words SET en = ?, es = ? WHERE id = ?",
+        word.en,
+        word.es,
+        word.id
+      );
+      //update the state with the new word
+      let wordsCopy = [...words];
+      wordsCopy.forEach(item => {
+        if(item.id === word.id){
+          item.en = word.en
+          item.es = word.es
+        }
+      })
+      setWords(wordsCopy);
+    } catch {
+        throw new Error("Error editing the word")
+    }
+  };
+  const deleteWord = async (wordId:number) => {
+    try {
+      //delete word from database
+      const result = await db.runAsync(
+        "DELETE FROM words WHERE id = ?",
+        wordId
+      );
+      //update the state with the new word
+      let wordsCopy = [...words];
+      setWords(wordsCopy.filter((word => word.id !== wordId)));
+    } catch {
+        throw new Error("Error deleting the word")
+    }
+  };
   return (
-    <ManageDatabaseContext.Provider value={{ words, addWord }}>
+    <ManageDatabaseContext.Provider value={{ words, addWord, editWord, deleteWord }}>
       {children}
     </ManageDatabaseContext.Provider>
   );
