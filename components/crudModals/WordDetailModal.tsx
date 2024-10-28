@@ -4,7 +4,8 @@ import {
   Text,
   Modal,
   TextInput,
-  Image
+  Image,
+  Alert,
 } from "react-native";
 import { useState, useContext, useEffect } from "react";
 import ManageDatabaseContext from "@/contexts/ManageDatabaseContext";
@@ -40,13 +41,13 @@ function WordDetailModal({
   }, [showModal]);
 
   useEffect(() => {
-    setWordData(word)
-  },[word])
+    setWordData(word);
+  }, [word]);
 
   const hideModal = () => {
     setModalVisible(false);
     hideDetailModal();
-    setWordData(word)
+    setWordData(word);
   };
 
   function handleUpdateWordData(key: string, newText: string) {
@@ -69,15 +70,35 @@ function WordDetailModal({
       });
   }
 
-  function handleDeleteWord(){
-    deleteWord(wordData.id)
-    .then(() => {
-        hideModal();
-        showToast({ message: "Word deleted successfuly", type: "success" });
-    })
-    .catch((err: Error) => {
-        showToast({ message: err.message, type: "danger" });
-      });
+  function handleDeleteWord() {
+    Alert.alert(
+      "Confirmation",
+      "Are you sure about this operation?",
+      [
+        {
+          text: "Cancel",
+          onPress: () => {},
+          style: "cancel",
+        },
+        {
+          text: "Accept",
+          onPress: () => {
+            deleteWord(wordData.id)
+              .then(() => {
+                hideModal();
+                showToast({
+                  message: "Word deleted successfuly",
+                  type: "success",
+                });
+              })
+              .catch((err: Error) => {
+                showToast({ message: err.message, type: "danger" });
+              });
+          },
+        },
+      ],
+      { cancelable: false }
+    );
   }
   return (
     <View style={{ position: "absolute", bottom: 15, right: 15 }}>
@@ -115,12 +136,21 @@ function WordDetailModal({
                 value={wordData.es}
                 onChangeText={(text) => handleUpdateWordData("es", text)}
               />
-              <View style = {commonStyles.buttonsContainer}>
-                <Pressable style={commonStyles.deleteButton} onPress={handleDeleteWord}>
-                    <Image style = {{width:30, height:30}} source = {require('@/assets/images/trash-regular-48.png')}/>
+              <View style={commonStyles.buttonsContainer}>
+                <Pressable
+                  style={commonStyles.deleteButton}
+                  onPress={handleDeleteWord}
+                >
+                  <Image
+                    style={{ width: 30, height: 30 }}
+                    source={require("@/assets/images/trash-regular-48.png")}
+                  />
                 </Pressable>
-                <Pressable style={commonStyles.sendDataButton} onPress={handleEditWord}>
-                    <Text style={commonStyles.textStyle}>Update</Text>
+                <Pressable
+                  style={commonStyles.sendDataButton}
+                  onPress={handleEditWord}
+                >
+                  <Text style={commonStyles.textStyle}>Update</Text>
                 </Pressable>
               </View>
             </View>
@@ -131,4 +161,4 @@ function WordDetailModal({
   );
 }
 
-export default WordDetailModal
+export default WordDetailModal;
