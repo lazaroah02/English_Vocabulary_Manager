@@ -26,10 +26,10 @@ export default function RandomWord() {
       </View>
       <View style={styles.randomWordCard}>
         <View style={styles.wordContainer}>
-          <Text style={styles.text}>
+          <Text numberOfLines={2} ellipsizeMode='tail' style={styles.text}>
             {mode === "en-es" ? word?.en : word?.es}
           </Text>
-          <HidableWord>{mode === "en-es" ? word?.es : word?.en}</HidableWord>
+          <HidableWord customStyles={{maxWidth:"90%"}}>{mode === "en-es" ? word?.es : word?.en}</HidableWord>
         </View>
         <Pressable
           style={styles.randomWordButton}
@@ -67,5 +67,6 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontSize: 20,
     fontWeight: "500",
+    maxWidth:"90%"
   },
 });

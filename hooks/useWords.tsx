@@ -4,16 +4,17 @@ import { useSQLiteContext } from "expo-sqlite";
 
 export function useWords() {
     const db = useSQLiteContext();
-    const [words, setWords] = useState<Word[]>([{id:1, en:"Hello", es:"Hola"}])
+    const [words, setWords] = useState<Word[]>([{id:1, en:"Hello firiend. How are you today?", es:"Hola amigo. Como estas hoy en tu dia"}])
     
     useEffect(() => {
         //get all words from database
-        const getWords = async() => {
-            const words = await db.getAllAsync<Word>('SELECT * FROM words')
-            //setWords(words)
-        }
         getWords()
+        .then(words => {})
     })
+    const getWords = async() => {
+        const words = await db.getAllAsync<Word>('SELECT * FROM words')
+        return words
+    }
     return ( {words} );
 }
 

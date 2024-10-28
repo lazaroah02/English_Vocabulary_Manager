@@ -1,14 +1,14 @@
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import { ReactNode, useState, useEffect } from "react";
 
-export function HidableWord({children}:{children:ReactNode}) {
+export function HidableWord({children, customStyles}:{children:ReactNode, customStyles?:{}}) {
     const [show, setShow] = useState(false)
     useEffect(() => {
         setShow(false)
     },[children])
     return ( 
-        <Pressable style = {styles.hidableWordContainer} onPress={() => setShow(!show)}>
-            <Text style = {styles.text}>{show?children:'Tap to see traduction'}</Text>
+        <Pressable style = {[styles.hidableWordContainer, customStyles]} onPress={() => setShow(!show)}>
+            <Text numberOfLines={2} ellipsizeMode='tail' style = {styles.text}>{show?children:'Show traduction'}</Text>
         </Pressable>
      );
 }
@@ -19,7 +19,8 @@ const styles = StyleSheet.create({
         borderRadius:10,
         padding:10,
         minWidth:138,
-        alignItems:"center"
+        alignItems:"center",
+        maxWidth:"50%"
     },
     text:{
         color:"#fff",

@@ -16,7 +16,7 @@ export default function HomeScreen() {
         keyExtractor={(word: Word) => word.id.toString()}
         renderItem={({ item: word, index }) => (
           <View style={styles.wordContainer}>
-            <Text style={styles.text}>{`${index + 1}. ${
+            <Text numberOfLines={2} ellipsizeMode='tail'style={styles.text}>{`${index + 1}. ${
               mode === "en-es" ? word?.en : word?.es
             }`}</Text>
             <HidableWord>{mode === "en-es" ? word?.es : word?.en}</HidableWord>
@@ -38,5 +38,6 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontSize: 20,
     fontWeight: "500",
+    maxWidth:"40%"
   },
 });

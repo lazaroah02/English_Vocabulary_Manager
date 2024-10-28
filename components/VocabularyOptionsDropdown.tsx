@@ -1,12 +1,14 @@
 import { View, StyleSheet, Text, Image } from "react-native";
 import SelectDropdown from "react-native-select-dropdown";
 
-const data = [{ text: "Hello Word 1" }, { text: "Hello World 2" }];
+const dropdownOptions = [
+  { text: "Import Words" }
+];
 
 function VocabularyOptionsDropdown() {
   return (
     <SelectDropdown
-      data={data}
+      data={dropdownOptions}
       onSelect={(selectedItem, index) => {
         alert(selectedItem.text);
       }}
@@ -14,7 +16,8 @@ function VocabularyOptionsDropdown() {
         return (
           <View style={styles.dropdownButtonStyle}>
             <Image
-                source={require("@/assets/images/dots-vertical-rounded-regular-24.png")}
+                style = {{width:24, height:35}}
+                source={require("@/assets/images/dots-vertical-rounded-regular-48.png")}
             />
           </View>
         );
@@ -24,7 +27,6 @@ function VocabularyOptionsDropdown() {
           <View
             style={{
               ...styles.dropdownItemStyle,
-              ...(isSelected && { backgroundColor: "#D2D9DF" }),
             }}
           >
             <Text style={styles.dropdownItemIconStyle}>{item.text}</Text>
@@ -49,15 +51,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingHorizontal: 12,
   },
-  dropdownButtonTxtStyle: {
-    flex: 1,
-    fontSize: 18,
-    fontWeight: "500",
-    color: "#151E26",
-  },
-  dropdownButtonArrowStyle: {
-    fontSize: 28,
-  },
   dropdownButtonIconStyle: {
     fontSize: 28,
     marginRight: 8,
@@ -67,7 +60,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     height:500,
     width:200,
-    left:10
+    left:150
   },
   dropdownItemStyle: {
     width: "100%",
@@ -77,14 +70,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingVertical: 8,
   },
-  dropdownItemTxtStyle: {
-    flex: 1,
-    fontSize: 18,
-    fontWeight: "500",
-    color: "#151E26",
-  },
   dropdownItemIconStyle: {
-    fontSize: 28,
+    fontSize: 20,
     marginRight: 8,
   },
 });
