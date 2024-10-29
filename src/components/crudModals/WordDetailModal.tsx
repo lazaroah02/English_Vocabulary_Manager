@@ -7,11 +7,11 @@ import {
   TextInput,
   Image,
 } from "react-native";
-import ManageDatabaseContext from "@/contexts/ManageDatabaseContext";
+import ManageDatabaseContext from "@/src/contexts/ManageDatabaseContext";
 import { CustomResponse, Word } from "@/types";
 import { ToastType, ToastDurationType } from "@/types";
 import { commonStyles } from "./commonStyles";
-import { confirm } from "@/utils/confirm";
+import { confirm } from "@/src/utils/confirm";
 
 function WordDetailModal({
   word,

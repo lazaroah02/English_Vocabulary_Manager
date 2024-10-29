@@ -1,4 +1,4 @@
-import { BACKGROUND_COLOR } from "@/constants/Colors";
+import { BACKGROUND_COLOR } from "@/src/constants/Colors";
 import { ReactNode } from "react";
 import { StyleSheet } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";

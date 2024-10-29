@@ -2,13 +2,13 @@ import { useFonts } from 'expo-font';
 import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
-import { TraductionModeContextProvider } from '@/contexts/TraductionModeContext';
+import { TraductionModeContextProvider } from '@/src/contexts/TraductionModeContext';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 import { SQLiteProvider} from 'expo-sqlite';
 import 'react-native-reanimated';
 import VocabularyHeaderRight from '@/components/VocabularyHeaderRight'
 import ChangeTraductionMode from '@/components/ChangeTraductionMode';
-import { ManageDatabaseContextProvider } from '@/contexts/ManageDatabaseContext';
+import { ManageDatabaseContextProvider } from '@/src/contexts/ManageDatabaseContext';
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();

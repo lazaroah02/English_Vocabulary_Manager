@@ -6,7 +6,7 @@ import {
   TextInput,
 } from "react-native";
 import { useState, useContext } from "react";
-import ManageDatabaseContext from "@/contexts/ManageDatabaseContext";
+import ManageDatabaseContext from "@/src/contexts/ManageDatabaseContext";
 import { CustomResponse } from "@/types";
 import { ToastType, ToastDurationType } from "@/types";
 import { commonStyles } from "./commonStyles";

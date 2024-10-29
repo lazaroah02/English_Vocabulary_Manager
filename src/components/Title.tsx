@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 import { StyleSheet, Text } from "react-native";
-import { TEXT_COLOR } from "@/constants/Colors";
+import { TEXT_COLOR } from "@/src/constants/Colors";
 
 export function Title({children, extraStyles}:{children:ReactNode, extraStyles?:{}}) {
     return ( 

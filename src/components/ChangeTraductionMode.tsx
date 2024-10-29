@@ -1,6 +1,6 @@
 import { Pressable, Image, StyleSheet } from "react-native";
 import { useContext } from "react";
-import TraductionModeContext from "@/contexts/TraductionModeContext";
+import TraductionModeContext from "@/src/contexts/TraductionModeContext";
 
 function ChangeTraductionMode() {
   const { mode, setMode } = useContext(TraductionModeContext);
