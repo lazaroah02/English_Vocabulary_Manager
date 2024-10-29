@@ -13,12 +13,17 @@ import NoWordsToShow from "@/components/NoWordsToShow";
 export default function RandomWord() {
   const [word, setWord] = useState<Word>({ id: 0, en: "", es: "" });
   const { mode } = useContext(TraductionModeContext);
-  const { words } = useContext(ManageDatabaseContext);
+  const { words, getWords } = useContext(ManageDatabaseContext);
   const { toast, showToast } = Toast();
   const [showDetailModal, setShowDetailModal] = useState(false);
 
   function getRandomWord(): void {
+    if (words.length === 0) return;
+    if (words.length === 1) return setWord(words[0]);
     let randomWord = words[Math.floor(Math.random() * words.length)];
+    while (randomWord.id === word.id) {
+      randomWord = words[Math.floor(Math.random() * words.length)];
+    }
     setWord(randomWord);
   }
 
@@ -36,7 +41,9 @@ export default function RandomWord() {
         word={word}
         showModal={showDetailModal}
         showToast={showToast}
-        afterDeleteWord={() => getRandomWord()}
+        afterDeleteWord={() => {
+          getRandomWord();
+        }}
       />
       <View style={styles.titleContainer}>
         <Title>Random Word</Title>
@@ -66,7 +73,7 @@ export default function RandomWord() {
           </Pressable>
         </View>
       ) : (
-        <NoWordsToShow/>
+        <NoWordsToShow />
       )}
     </Page>
   );

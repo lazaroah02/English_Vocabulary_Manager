@@ -8,7 +8,8 @@ const ManageDatabaseContext = createContext<{
   addWord: ({ en, es }: { en: string; es: string }) => any;
   editWord: (word:Word) => any;
   deleteWord: (wordId:number) => any;
-}>({ words: [], addWord: () => {}, editWord:() => {}, deleteWord:() => {} });
+  getWords:() => void
+}>({ words: [], addWord: () => {}, editWord:() => {}, deleteWord:() => {}, getWords:() => {} });
 
 export function ManageDatabaseContextProvider({
   children,
@@ -20,14 +21,12 @@ export function ManageDatabaseContextProvider({
 
   useEffect(() => {
     //get all words from database
-    getWords().then((words) => {
-      setWords(words);
-    });
+    getWords()
   }, []);
 
   const getWords = async () => {
     const words = await db.getAllAsync<Word>("SELECT * FROM words");
-    return words;
+    setWords(words)
   };
 
   const addWord = async ({ en, es }: { en: string; es: string }) => {
@@ -75,15 +74,13 @@ export function ManageDatabaseContextProvider({
         "DELETE FROM words WHERE id = ?",
         wordId
       );
-      //update the state with the new word
-      let wordsCopy = [...words];
-      setWords(wordsCopy.filter((word => word.id !== wordId)));
+      getWords()
     } catch {
         throw new Error("Error deleting the word")
     }
   };
   return (
-    <ManageDatabaseContext.Provider value={{ words, addWord, editWord, deleteWord }}>
+    <ManageDatabaseContext.Provider value={{ words, addWord, editWord, deleteWord, getWords }}>
       {children}
     </ManageDatabaseContext.Provider>
   );
