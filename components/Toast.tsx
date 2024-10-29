@@ -34,11 +34,12 @@ function Toast() {
     }, duration);
   };
 
-  const toast = () => {
+  const toast = (extraStyles?:{}) => {
     return (
       <Animated.View
         style={[
           styles.toastContainer,
+          extraStyles,
           { display: `${show ? "flex" : "none"}`, translateY:translateY },
         ]}
       >

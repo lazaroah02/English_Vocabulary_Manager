@@ -8,17 +8,15 @@ import AddWordModal from "@/components/crudModals/AddWordModal";
 import ManageDatabaseContext from "@/contexts/ManageDatabaseContext";
 import Toast from "@/components/Toast";
 import WordDetailModal from "@/components/crudModals/WordDetailModal";
+import NoWordsToShow from "@/components/NoWordsToShow";
 
 export default function HomeScreen() {
   const { mode } = useContext(TraductionModeContext);
   const { words } = useContext(ManageDatabaseContext);
   const { toast, showToast } = Toast();
   const [showDetailModal, setShowDetailModal] = useState(false);
-  const [detailWord, setDetailWord] = useState<Word>({id:0, en:"", es:""});
+  const [detailWord, setDetailWord] = useState<Word>({ id: 0, en: "", es: "" });
 
-  const hideDetailModal = () => {
-    setShowDetailModal(false);
-  };
   return (
     <Page>
       {toast()}
@@ -26,28 +24,36 @@ export default function HomeScreen() {
         word={detailWord}
         showToast={showToast}
         showModal={showDetailModal}
-        hideDetailModal={hideDetailModal}
+        hideDetailModal={() => setShowDetailModal(false)}
       />
-      <FlatList
-        data={words}
-        style={{ marginTop: -30 }}
-        keyExtractor={(word: Word) => word.id.toString()}
-        contentContainerStyle={{ paddingBottom: 100 }}
-        renderItem={({ item: word, index }) => (
-          <View style={styles.wordContainer}>
-            <Text
-              onPress={() => {
-                setDetailWord(word)
-                setShowDetailModal(true)
-              }}
-              numberOfLines={2}
-              ellipsizeMode="tail"
-              style={styles.text}
-            >{`${index + 1}. ${mode === "en-es" ? word?.en : word?.es}`}</Text>
-            <HidableWord>{mode === "en-es" ? word?.es : word?.en}</HidableWord>
-          </View>
-        )}
-      />
+      {words.length > 0 ? (
+        <FlatList
+          data={words}
+          style={{ marginTop: -30 }}
+          keyExtractor={(word: Word) => word.id.toString()}
+          contentContainerStyle={{ paddingBottom: 100 }}
+          renderItem={({ item: word, index }) => (
+            <View style={styles.wordContainer}>
+              <Text
+                onPress={() => {
+                  setDetailWord(word);
+                  setShowDetailModal(true);
+                }}
+                numberOfLines={2}
+                ellipsizeMode="tail"
+                style={styles.text}
+              >{`${index + 1}. ${
+                mode === "en-es" ? word?.en : word?.es
+              }`}</Text>
+              <HidableWord>
+                {mode === "en-es" ? word?.es : word?.en}
+              </HidableWord>
+            </View>
+          )}
+        />
+      ) : (
+        <NoWordsToShow />
+      )}
       <AddWordModal showToast={showToast} />
     </Page>
   );

@@ -29,7 +29,7 @@ function AddWord({showToast}:{showToast:({message, type, duration}:{message:stri
       return showToast({message:"Empty fields not allowed", type:"danger"})
     }
     addWord(newWordData)
-    .then((res:CustomResponse) => {
+    .then(() => {
         setModalVisible(false)
         setNewWordData({en:"", es:""})
         showToast({message:"Word added successfuly", type:"success"})

@@ -1,3 +1,4 @@
+import React, { useState, useContext, useEffect, useCallback } from "react";
 import {
   View,
   Pressable,
@@ -5,9 +6,7 @@ import {
   Modal,
   TextInput,
   Image,
-  Alert,
 } from "react-native";
-import { useState, useContext, useEffect } from "react";
 import ManageDatabaseContext from "@/contexts/ManageDatabaseContext";
 import { CustomResponse, Word } from "@/types";
 import { ToastType, ToastDurationType } from "@/types";
@@ -18,11 +17,13 @@ function WordDetailModal({
   word,
   showModal,
   hideDetailModal,
+  afterDeleteWord = () => {},
   showToast,
 }: {
   word: Word;
   showModal: boolean;
   hideDetailModal: () => void;
+  afterDeleteWord?: () => void;
   showToast: ({
     message,
     type,
@@ -38,85 +39,82 @@ function WordDetailModal({
   const [wordData, setWordData] = useState<Word>(word);
 
   useEffect(() => {
-    if (showModal) setModalVisible(true);
+    setModalVisible(showModal);
+  }, [showModal]);
+
+  useEffect(() => {
     setWordData(word);
-  }, [showModal, word]);
-  
-  const hideModal = () => {
+  }, [word]);
+
+  const hideModal = useCallback(() => {
     setModalVisible(false);
     hideDetailModal();
     setWordData(word);
-  };
-  
-  function handleUpdateWordData(key: string, newText: string) {
+  }, [hideDetailModal, word]);
+
+  const handleUpdateWordData = useCallback((key: string, newText: string) => {
     setWordData((prev) => ({
       ...prev,
-      [`${key}`]: newText,
+      [key]: newText,
     }));
-  }
+  }, []);
 
-  function handleEditWord() {
-    if (wordData.en === "" || wordData.es === "") {
+  const handleEditWord = useCallback(async () => {
+    if (wordData.en.trim() === "" || wordData.es.trim() === "") {
       return showToast({ message: "Empty fields not allowed", type: "danger" });
     }
-    editWord(wordData)
-      .then((res: CustomResponse) => {
-        hideModal();
-        showToast({ message: "Word edited successfuly", type: "success" });
-      })
-      .catch((err: Error) => {
-        showToast({ message: err.message, type: "danger" });
-      });
-  }
-  
-  function handleDeleteWord() {
+    try {
+      await editWord(wordData);
+      hideModal();
+      showToast({ message: "Word edited successfully", type: "success" });
+    } catch (err) {
+      showToast({ message: (err as Error).message, type: "danger" });
+    }
+  }, [wordData, editWord, hideModal, showToast]);
+
+  const handleDeleteWord = useCallback(() => {
     confirm({
-      onConfirm: () => {
-        deleteWord(wordData.id)
-          .then(() => {
-            hideModal();
-            showToast({
-              message: "Word deleted successfuly",
-              type: "success",
-            });
-          })
-          .catch((err: Error) => {
-            showToast({ message: err.message, type: "danger" });
+      onConfirm: async () => {
+        try {
+          await deleteWord(wordData.id);
+          hideModal();
+          showToast({
+            message: "Word deleted successfully",
+            type: "success",
           });
+          afterDeleteWord();
+        } catch (err) {
+          showToast({ message: (err as Error).message, type: "danger" });
+        }
       },
     });
-  }
+  }, [wordData.id, deleteWord, hideModal, showToast, afterDeleteWord]);
+
   return (
     <View style={{ position: "absolute", bottom: 15, right: 15 }}>
       <Modal
         animationType="slide"
         transparent={true}
         visible={modalVisible}
-        onRequestClose={() => {
-          hideModal();
-        }}
+        onRequestClose={hideModal}
       >
         <View style={commonStyles.centeredView}>
           <View style={commonStyles.modalView}>
             <Pressable
               style={commonStyles.closeModalButton}
-              onPress={() => {
-                hideModal();
-              }}
+              onPress={hideModal}
             >
               <Text style={commonStyles.closeModalButtonText}>X</Text>
             </Pressable>
             <Text style={commonStyles.modalTitle}>Word Detail</Text>
             <View style={commonStyles.addWordForm}>
               <TextInput
-                id="en"
                 placeholder="English Word"
                 style={commonStyles.input}
                 value={wordData.en}
                 onChangeText={(text) => handleUpdateWordData("en", text)}
               />
               <TextInput
-                id="es"
                 placeholder="Spanish Word"
                 style={commonStyles.input}
                 value={wordData.es}
@@ -147,4 +145,4 @@ function WordDetailModal({
   );
 }
 
-export default WordDetailModal;
+export default React.memo(WordDetailModal);
