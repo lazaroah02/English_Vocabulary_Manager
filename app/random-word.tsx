@@ -9,11 +9,12 @@ import ManageDatabaseContext from "@/src/contexts/ManageDatabaseContext";
 import Toast from "@/src/components/Toast";
 import WordDetailModal from "@/src/components/crudModals/WordDetailModal";
 import NoWordsToShow from "@/src/components/NoWordsToShow";
+import Loader from "@/src/components/Loader";
 
 export default function RandomWord() {
   const [word, setWord] = useState<Word>({ id: 0, en: "", es: "" });
   const { mode } = useContext(TraductionModeContext);
-  const { words, getWords } = useContext(ManageDatabaseContext);
+  const { words, loading } = useContext(ManageDatabaseContext);
   const { toast, showToast } = Toast();
   const [showDetailModal, setShowDetailModal] = useState(false);
 
@@ -33,7 +34,11 @@ export default function RandomWord() {
     }
   }, [words]);
 
-  return (
+  return loading ? (
+    <Page>
+      <Loader />
+    </Page>
+  ) : (
     <Page>
       {toast({ left: 80 })}
       <WordDetailModal

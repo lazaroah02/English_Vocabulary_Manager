@@ -9,15 +9,20 @@ import ManageDatabaseContext from "@/src/contexts/ManageDatabaseContext";
 import Toast from "@/src/components/Toast";
 import WordDetailModal from "@/src/components/crudModals/WordDetailModal";
 import NoWordsToShow from "@/src/components/NoWordsToShow";
+import Loader from "@/src/components/Loader";
 
 export default function HomeScreen() {
   const { mode } = useContext(TraductionModeContext);
-  const { words } = useContext(ManageDatabaseContext);
+  const { words, loading } = useContext(ManageDatabaseContext);
   const { toast, showToast } = Toast();
   const [showDetailModal, setShowDetailModal] = useState(false);
   const [detailWord, setDetailWord] = useState<Word>({ id: 0, en: "", es: "" });
 
-  return (
+  return loading ? (
+    <Page>
+      <Loader />
+    </Page>
+  ) : (
     <Page>
       {toast()}
       <WordDetailModal

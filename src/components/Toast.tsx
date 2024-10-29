@@ -1,6 +1,6 @@
 import { View, Text, StyleSheet, Animated} from "react-native";
 import { useRef, useState } from "react";
-import { ToastType, ToastDurationType } from "@/types";
+import { ToastType, ToastDurationType } from "@/src/types";
 
 function Toast() {
   const [show, setShow] = useState<boolean>(false);
@@ -40,7 +40,7 @@ function Toast() {
         style={[
           styles.toastContainer,
           extraStyles,
-          { display: `${show ? "flex" : "none"}`, translateY:translateY },
+          { display: `${show ? "flex" : "none"}`, transform:[{translateY:translateY}] },
         ]}
       >
         {type === "success" ? successToast() : null}
