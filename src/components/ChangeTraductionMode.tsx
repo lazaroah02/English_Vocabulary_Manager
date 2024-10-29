@@ -7,9 +7,9 @@ function ChangeTraductionMode() {
   return (
     <Pressable onPress={() => setMode(mode === "en-es" ? "es-en" : "en-es")}>
       {mode === "en-es" ? (
-        <Image style = {styles.image} source={require("@/assets/images/en-to-es.png")} resizeMode="contain"/>
+        <Image style = {styles.image} source={require("@/src/assets/images/en-to-es.png")} resizeMode="contain"/>
       ) : (
-        <Image style = {styles.image} source={require("@/assets/images/es-to-en.png")} resizeMode="contain"/>
+        <Image style = {styles.image} source={require("@/src/assets/images/es-to-en.png")} resizeMode="contain"/>
       )}
     </Pressable>
   );

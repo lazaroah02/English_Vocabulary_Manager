@@ -1,14 +1,14 @@
 import { StyleSheet, Pressable, View, Image, Text } from "react-native";
-import { Word } from "@/types";
+import { Word } from "@/src/types";
 import { useState, useEffect, useContext } from "react";
-import { HidableWord } from "@/components/HidableWord";
+import { HidableWord } from "@/src/components/HidableWord";
 import TraductionModeContext from "@/src/contexts/TraductionModeContext";
-import { Title } from "@/components/Title";
-import Page from "@/components/Page";
+import { Title } from "@/src/components/Title";
+import Page from "@/src/components/Page";
 import ManageDatabaseContext from "@/src/contexts/ManageDatabaseContext";
-import Toast from "@/components/Toast";
-import WordDetailModal from "@/components/crudModals/WordDetailModal";
-import NoWordsToShow from "@/components/NoWordsToShow";
+import Toast from "@/src/components/Toast";
+import WordDetailModal from "@/src/components/crudModals/WordDetailModal";
+import NoWordsToShow from "@/src/components/NoWordsToShow";
 
 export default function RandomWord() {
   const [word, setWord] = useState<Word>({ id: 0, en: "", es: "" });
@@ -69,7 +69,7 @@ export default function RandomWord() {
             style={styles.randomWordButton}
             onPress={() => getRandomWord()}
           >
-            <Image source={require("@/assets/images/dices.png")} />
+            <Image source={require("@/src/assets/images/dices.png")} />
           </Pressable>
         </View>
       ) : (

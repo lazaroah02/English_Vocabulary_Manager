@@ -8,8 +8,8 @@ import {
   Image,
 } from "react-native";
 import ManageDatabaseContext from "@/src/contexts/ManageDatabaseContext";
-import { CustomResponse, Word } from "@/types";
-import { ToastType, ToastDurationType } from "@/types";
+import { CustomResponse, Word } from "@/src/types";
+import { ToastType, ToastDurationType } from "@/src/types";
 import { commonStyles } from "./commonStyles";
 import { confirm } from "@/src/utils/confirm";
 
@@ -53,7 +53,7 @@ function WordDetailModal({
   }, [hideDetailModal, word]);
 
   const handleUpdateWordData = useCallback((key: string, newText: string) => {
-    setWordData((prev) => ({
+    setWordData((prev:Word) => ({
       ...prev,
       [key]: newText,
     }));
@@ -127,7 +127,7 @@ function WordDetailModal({
                 >
                   <Image
                     style={{ width: 30, height: 30 }}
-                    source={require("@/assets/images/trash-regular-48.png")}
+                    source={require("@/src/assets/images/trash-regular-48.png")}
                   />
                 </Pressable>
                 <Pressable

@@ -17,7 +17,7 @@ function VocabularyOptionsDropdown() {
           <View style={styles.dropdownButtonStyle}>
             <Image
                 style = {{width:24, height:35}}
-                source={require("@/assets/images/dots-vertical-rounded-regular-48.png")}
+                source={require("@/src/assets/images/dots-vertical-rounded-regular-48.png")}
             />
           </View>
         );

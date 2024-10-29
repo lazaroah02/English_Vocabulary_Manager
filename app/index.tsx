@@ -1,7 +1,7 @@
 import { StyleSheet, View, Pressable } from "react-native";
-import { Title } from "@/components/Title";
+import { Title } from "@/src/components/Title";
 import { useNavigation } from "expo-router";
-import Page from "@/components/Page";
+import Page from "@/src/components/Page";
 
 export default function HomeMenu() {
   const navigation = useNavigation();

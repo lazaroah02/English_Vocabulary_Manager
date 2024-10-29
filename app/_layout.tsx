@@ -6,8 +6,8 @@ import { TraductionModeContextProvider } from '@/src/contexts/TraductionModeCont
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 import { SQLiteProvider} from 'expo-sqlite';
 import 'react-native-reanimated';
-import VocabularyHeaderRight from '@/components/VocabularyHeaderRight'
-import ChangeTraductionMode from '@/components/ChangeTraductionMode';
+import VocabularyHeaderRight from '@/src/components/VocabularyHeaderRight'
+import ChangeTraductionMode from '@/src/components/ChangeTraductionMode';
 import { ManageDatabaseContextProvider } from '@/src/contexts/ManageDatabaseContext';
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
@@ -15,7 +15,7 @@ SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
   const [loaded] = useFonts({
-    SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
+    SpaceMono: require('@/src/assets/fonts/SpaceMono-Regular.ttf'),
   });
 
   useEffect(() => {
@@ -30,7 +30,7 @@ export default function RootLayout() {
 
   return (
     <SafeAreaProvider>
-      <SQLiteProvider databaseName='database' assetSource={{assetId: require("@/assets/database.db")}}>
+      <SQLiteProvider databaseName='database' assetSource={{assetId: require("@/src/assets/database.db")}}>
         <ManageDatabaseContextProvider>
           <TraductionModeContextProvider>
             <Stack>

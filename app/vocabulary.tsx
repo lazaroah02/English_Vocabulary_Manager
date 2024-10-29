@@ -1,14 +1,14 @@
-import { Word } from "@/types";
-import { HidableWord } from "@/components/HidableWord";
+import { Word } from "@/src/types";
+import { HidableWord } from "@/src/components/HidableWord";
 import { useContext, useState } from "react";
 import { FlatList, StyleSheet, View, Text } from "react-native";
 import TraductionModeContext from "@/src/contexts/TraductionModeContext";
-import Page from "@/components/Page";
-import AddWordModal from "@/components/crudModals/AddWordModal";
+import Page from "@/src/components/Page";
+import AddWordModal from "@/src/components/crudModals/AddWordModal";
 import ManageDatabaseContext from "@/src/contexts/ManageDatabaseContext";
-import Toast from "@/components/Toast";
-import WordDetailModal from "@/components/crudModals/WordDetailModal";
-import NoWordsToShow from "@/components/NoWordsToShow";
+import Toast from "@/src/components/Toast";
+import WordDetailModal from "@/src/components/crudModals/WordDetailModal";
+import NoWordsToShow from "@/src/components/NoWordsToShow";
 
 export default function HomeScreen() {
   const { mode } = useContext(TraductionModeContext);
